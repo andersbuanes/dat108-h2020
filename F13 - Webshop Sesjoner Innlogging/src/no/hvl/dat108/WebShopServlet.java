@@ -21,8 +21,8 @@ public class WebShopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Inn noe kode her i forbindelse med autorisasjon?
-		// Inn noe kode her i forbindelse med uthenting av sesjonsdata?
+		//Inn noe kode her i forbindelse med autorisasjon?
+		//Inn noe kode her i forbindelse med uthenting av sesjonsdata?
 
 		HttpSession sesjon = request.getSession(false);
 
