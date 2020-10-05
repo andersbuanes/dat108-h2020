@@ -21,8 +21,14 @@ public class LoggInnServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
-        // Inn noe kode her i forbindelse med evt. feilmeldinger?
-        
+    	//Har brukt en request-parameter for å angi feilmelding
+    	//Har brukt ulike parametre for ulike feil
+    	//Det er andre og muligens bedre måter å gjøre dette på
+        boolean requiresLoginRedirect = request
+                .getParameter("requiresLogin") != null;
+        boolean invalidUsernameRedirect = request
+                .getParameter("invalidUsername") != null;
+
         response.setContentType("text/html; charset=ISO-8859-1");
 
         PrintWriter out = response.getWriter();
@@ -35,9 +41,18 @@ public class LoggInnServlet extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         
-        // Inn noe kode her i forbindelse med evt. feilmeldinger?
-
-        out.println("<form action=\"" + LOGIN_URL + "\" method=\"post\">");
+        if (requiresLoginRedirect) {
+            out.println("<p><font color=\"red\">" +
+                    "Forespørselen din krever pålogging. " +
+                    "(Du kan ha blitt logget ut automatisk)</font></p>");
+            
+        } else if (invalidUsernameRedirect) {
+            out.println("<p><font color=\"red\">" +
+            		"Manglende eller ugyldig brukernavn</font></p>");
+        }
+        
+        out.println("<form action=\"" + LOGIN_URL
+                + "\" method=\"post\">");
         out.println("  <fieldset>");
         out.println("    <legend>Login</legend>");
         out.println("    <p>Navn: <input type=\"text\" name=\"username\" /></p>");
@@ -52,43 +67,23 @@ public class LoggInnServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
-        // Inn noe kode her i forbindelse med innlogging av bruker?
-        // Inn noe kode her i forbindelse med oppretting av sesjonsdata?
-    	
-    	String brukernavn = request.getParameter("username");
-    	
-    	//Sjekke for gyldig brukernavn
-    	//Må være minst 4 tegn og kun inneholde bokstaver og tall,
-    	//og må begynne med en bokstav.
-    	if (!Validator.isValidUsername(brukernavn)) {
-    		response.sendRedirect(LOGIN_URL); // + feilmeldingsgreie
-    	}
-    	
-    	HttpSession sesjon = request.getSession(false);
-    	if (sesjon != null) {
-    		sesjon.invalidate();
-    	}
-    	
-    	sesjon = request.getSession(true);
-    	sesjon.setMaxInactiveInterval(600);
-    	
-    	sesjon.setAttribute("brukernavn", brukernavn);
-    	sesjon.setAttribute("handlevogn", new Cart());
-    	
-        response.sendRedirect(WEBSHOP_URL);
+        String username = request.getParameter("username");
+
+        if (username == null || !Validator.isValidUsername(username)) {
+            response.sendRedirect(LOGIN_URL + "?invalidUsername");
+        } else {
+
+            HttpSession sesjon = request.getSession(false);
+            if (sesjon != null) {
+                sesjon.invalidate();
+            }
+            sesjon = request.getSession(true);
+            sesjon.setMaxInactiveInterval(10);
+
+            sesjon.setAttribute("username", username);
+            sesjon.setAttribute("cart", new Cart());
+
+            response.sendRedirect(WEBSHOP_URL);
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
