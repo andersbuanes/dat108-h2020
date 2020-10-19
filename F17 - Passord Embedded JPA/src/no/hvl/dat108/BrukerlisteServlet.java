@@ -22,20 +22,10 @@ public class BrukerlisteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		List<Bruker> brukerliste = brukerDAO.hentAlleBrukere();
-		Bruker per = brukerDAO.hentBruker("per");
 		
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
-		
 		brukerliste.forEach(out::println);
-		out.println(per);
-	
-		if (brukerDAO.hentBruker("lars") == null) {
-			Passord passord = Passord.lagPassord("qwerty");
-			Bruker lars = new Bruker("lars", passord);
-			brukerDAO.lagreNyBruker(lars);
-		}
-		
 	}
 }
 

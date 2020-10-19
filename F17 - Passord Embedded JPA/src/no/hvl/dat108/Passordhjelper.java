@@ -41,6 +41,11 @@ public class Passordhjelper {
 		return passordhash.equals(hashMedSalt(passord, salt));
 	}
 	
+	
+	
+	// Metodene nedenfor bruker en annen algoritme enn de over.
+	// Dere velger ett av disse metodesettene. Ikke miks!
+	
 	public static String hashMedSalt2(String passord, String salt) { 
 		
 		char[] passchar = passord.toCharArray();
@@ -61,6 +66,4 @@ public class Passordhjelper {
 	public static boolean validerMedSalt2(String passord, String salt, String passordhash) {
 		return passordhash.equals(hashMedSalt2(passord, salt));
 	}
-	
-
 }

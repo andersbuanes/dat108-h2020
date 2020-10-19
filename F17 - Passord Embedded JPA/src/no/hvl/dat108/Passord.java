@@ -23,10 +23,6 @@ public class Passord {
 	public static Passord lagPassord(String passordKlartekst) {
 		String salt = Passordhjelper.genererTilfeldigSalt();
 		String hash = Passordhjelper.hashMedSalt2(passordKlartekst, salt);
-		
-		System.out.println(salt);
-		System.out.println(hash);
-		
 		return new Passord(hash, salt);
 	}
 }
