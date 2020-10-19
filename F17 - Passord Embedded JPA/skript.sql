@@ -11,7 +11,7 @@ CREATE TABLE bruker
 );
 
 INSERT INTO bruker VALUES 
-	('Per', -- passord: querty
+	('Per', -- passord: qwerty
 		'DF32FB5C3D132F276CA0E9B582ADA7E7B72CA1E5DE58C35D86C378A9446EE005',
 		'38943AF5CA14AE5C1B9438FBB20233CA'), 
 	('Pål', -- passord: pass123
