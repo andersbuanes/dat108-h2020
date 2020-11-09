@@ -5,6 +5,12 @@ import java.io.IOException;
 import com.google.gson.JsonSyntaxException;
 
 public class CurrencyConverter {
+	
+	private ExchangeRateService ers = new ExchangeRateServiceLive();
+	
+	public void setExchangeRateService(ExchangeRateService ers) {
+		this.ers = ers;
+	}
 
 	public double convertAmount(double fromAmount, String fromCurrencyParameter, String toCurrencyParameter) {
 		
@@ -12,7 +18,7 @@ public class CurrencyConverter {
 		
 		ExchangeRate exchangeRate;
 		try {
-			exchangeRate = ExchangeRateService.getRate(fromCurrencyParameter, toCurrencyParameter);
+			exchangeRate = ers.getRate(fromCurrencyParameter, toCurrencyParameter);
 			toAmount = fromAmount * exchangeRate.rate;
 		} catch (JsonSyntaxException | IOException e) {
 			// returning default toAmount;

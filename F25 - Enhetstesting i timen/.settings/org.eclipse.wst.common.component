@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
+    <wb-module deploy-name="F25 - Enhetstesting litt avansert">
+                
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+                
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+                
+        <property name="context-root" value="f25a"/>
+                
+        <property name="java-output-path" value="/F25 - Enhetstesting litt avansert/build/classes"/>
+            
+    </wb-module>
+    
+</project-modules>

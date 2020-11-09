@@ -33,4 +33,21 @@ public class CurrencyConverterTest {
 	public void ugydligKodeGirNull() {
 		assertEquals(0, cc.convertAmount(1234, "NOK", "ABC"), Double.MIN_VALUE);
 	}
+	
+	/** 4. Teste at valutaveksling gir korrekt svar */
+	@Test
+	public void veksling() {
+		cc.setExchangeRateService(new ExchangeRateServiceTestStub());
+		assertEquals(800, cc.convertAmount(100, "USD", "NOK"), Double.MIN_VALUE);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
